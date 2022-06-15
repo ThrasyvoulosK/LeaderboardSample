@@ -20,8 +20,11 @@ public class LeaderboardScript : MonoBehaviour
     //Create up to 2000 new entries for the leaderboard
     void GenerateEntries()
     {
-        GameObject entry = transform.Find("Entries").Find("Entry").gameObject;
-        GameObject newEntry=Instantiate(entry,entry.transform);
-        newEntry.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, entry.GetComponent<RectTransform>().anchoredPosition.y- 100f);
+        for (int i = 1; i <= 50; i++)
+        {
+            GameObject entry = transform.Find("EntriesBg").Find("Entries").Find("Entry").gameObject;
+            GameObject newEntry = Instantiate(entry, entry.transform.parent);
+            newEntry.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, entry.GetComponent<RectTransform>().anchoredPosition.y - i*30f);
+        }
     }
 }
