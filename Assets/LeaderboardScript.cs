@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using TMPro;
+using System;
 
 public class LeaderboardScript : MonoBehaviour
 {
     public int originalScore = 1000000;
-    public int numberOfEntries = 2000;
+    int numberOfEntries = 2000;
 
     // Start is called before the first frame update
     void Start()
     {
         GenerateEntries();
+        SetListHeight();
     }
 
-    // Update is called once per frame
+     // Update is called once per frame
     void Update()
     {
         
@@ -40,5 +42,13 @@ public class LeaderboardScript : MonoBehaviour
             //3.Score
             newEntry.transform.Find("Score").GetComponent<TextMeshProUGUI>().text =(originalScore-i*(originalScore/numberOfEntries)).ToString();
         }
+    }
+
+    //The List of Entries has to have a specific height to avoid inappropriate scrolling
+    void SetListHeight()
+    {
+        GameObject entriesList = transform.Find("EntriesBg").Find("Entries").gameObject;
+        //Set it as the sum of the heights of each entry plus a little extra space
+        entriesList.GetComponent<RectTransform>().sizeDelta = new Vector2(entriesList.GetComponent<RectTransform>().sizeDelta.x, (numberOfEntries+1.5f) * 30);
     }
 }
